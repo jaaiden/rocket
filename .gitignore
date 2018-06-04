@@ -59,4 +59,9 @@ typings/
 
 # next.js build output
 .next
-dist/.DS_Store
+
+# electron-builder output
+dist
+
+# macOS files
+.DS_Store
