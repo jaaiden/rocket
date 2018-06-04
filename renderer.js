@@ -33,7 +33,7 @@ function goForward () {
 function updateUrl (event) {
     if (event.keyCode === 13) {
         omni.blur()
-        let val = omni.innerHTML
+        let val = omni.value
         if (validateUrl(val)) {
             let https = val.slice(0, 8).toLowerCase()
             let http = val.slice(0, 7).toLowerCase()
