@@ -43,8 +43,20 @@ function updateUrl (event) {
                 view.loadURL('http://' + val)
         }
         else {
-            // Search the web
-            view.loadURL('https://google.com/search?q=' + val)
+            var customSchema = val.slice(0, 2).toLowerCase()
+            var customSchemaSpace = val.slice(0, 3).toLowerCase()
+            if (customSchema === 'v?')
+                view.loadURL('https://duckduckgo.com/?q=' + val.substring(2) + '&iax=videos&ia=videos')
+            else if (customSchemaSpace === 'v? ')
+                view.loadURL('https://duckduckgo.com/?q=' + val.substring(2) + '&iax=videos&ia=videos')
+            else if (customSchema === 'i?')
+                view.loadURL('https://duckduckgo.com/?q=' + val.substring(2) + '&iax=images&ia=images')
+            else if (customSchemaSpace === 'i? ')
+                view.loadURL('https://duckduckgo.com/?q=' + val.substring(2) + '&iax=images&ia=images')
+            else {
+                // Search the web
+                view.loadURL('https://duckduckgo.com/?q=' + val)
+            }
         }
     }
 }
@@ -107,7 +119,8 @@ function openPopup (event) {
 function handleUrl (event) {
     if (event.target.className === 'link') {
         event.preventDefault()
-        view.loadURL(event.target.innerHTML)
+        // view.loadURL(event.target.innerHTML) // Use with editable div text
+        view.loadURL(event.target.value)
     }
     else if (event.target.className === 'favicon') {
         event.preventDefault()
@@ -124,7 +137,8 @@ function handleDevtools () {
 }
 
 function updateNav (event) {  
-    omni.innerHTML = view.src
+    // omni.innerHTML = view.src // Use with editable div text
+    omni.value = view.src
 }
 
 // Validate url
