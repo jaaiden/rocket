@@ -27,9 +27,10 @@
   <body>
 
     <!-- Omnibar -->
-    <nav class="navbar is-fixed-top is-dark">
+    <nav class="navbar is-fixed-top" id="titlebar">
 
       <div class="navbar-brand">
+        <!-- <a class="navbar-item" id="home"><img src="img/AppLogo2.png" width="24" height="24"></a> -->
         <div class="navbar-item"><span class="icon"><i class="fa fa-rocket fa-lg fa-fw"></i></span></div>
         <!-- <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
           <span aria-hidden="true"></span>
@@ -53,10 +54,13 @@
         <div class="navbar-end">
           <a class="navbar-item" id="snip"><span class="icon"><i class="fa fa-bookmark-o fa-fw"></i></span></a>
           <a class="navbar-item" id="console"><span class="icon"><i class="fa fa-terminal fa-fw"></i></span></a>
+          <a class="navbar-item" id="settings"><span class="icon"><i class="fa fa-gear fa-fw"></i></span></a>
+
           <!-- Only for non-macOS -->
           <a class="navbar-item" id="ctx-minimize"><span class="icon"><i class="fa fa-window-minimize fa-fw"></i></span></a>
           <a class="navbar-item" id="ctx-maximize"><span class="icon"><i class="fa fa-window-restore fa-fw"></i></span></a>
           <a class="navbar-item" id="ctx-close"><span class="icon"><i class="fa fa-close fa-fw"></i></span></a>
+          <!-- End context menu buttons -->
         </div>
 
       </div>
@@ -67,6 +71,25 @@
       <webview id="view" src="https://start.duckduckgo.com/?k1=-1&kae=d"></webview>
     </div>
 
+
+
+    <!-- Settings modal -->
+    <div class="modal" id="settingsModal">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Rocket Settings</p>
+          <button class="delete" id="close-settingsModal" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+          <!-- Content ... -->
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button is-success">Save changes</button>
+          <button class="button">Cancel</button>
+        </footer>
+      </div>
+    </div>
 
     <script>require('./renderer.js')</script>
   </body>

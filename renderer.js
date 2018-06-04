@@ -10,11 +10,15 @@ var favicon = require('favicon-getter').default
 var path = require('path')
 var uuid = require('uuid')
 var snippets = path.join(__dirname, 'snippets.json')
+var settings = require(path.join(__dirname, 'settings.json'))
 
-var back = ById('back'),  
+var nav = ById('titlebar'),
+    back = ById('back'),  
     forward = ById('forward'),
     refresh = ById('refresh'),
     omni = ById('omniurl'),
+    settingsModal = ById('settings'),
+    closeSettingsModal = ById('close-settingsModal'),
     dev = ById('console'),
     snip = ById('snip'),
     list = ById('list'),
@@ -60,16 +64,16 @@ function updateUrl (event) {
             var customSchema = val.slice(0, 2).toLowerCase()
             var customSchemaSpace = val.slice(0, 3).toLowerCase()
             if (customSchema === 'v?')
-                view.loadURL('https://duckduckgo.com/?q=' + val.substring(2) + '&iax=videos&ia=videos')
+                view.loadURL('https://duckduckgo.com/?q=' + val.substring(2) + '&iax=videos&ia=videos' + (settings.theme === 'dark' ? '&k1=-1&kae=d' : ''))
             else if (customSchemaSpace === 'v? ')
-                view.loadURL('https://duckduckgo.com/?q=' + val.substring(2) + '&iax=videos&ia=videos')
+                view.loadURL('https://duckduckgo.com/?q=' + val.substring(2) + '&iax=videos&ia=videos' + (settings.theme === 'dark' ? '&k1=-1&kae=d' : ''))
             else if (customSchema === 'i?')
-                view.loadURL('https://duckduckgo.com/?q=' + val.substring(2) + '&iax=images&ia=images')
+                view.loadURL('https://duckduckgo.com/?q=' + val.substring(2) + '&iax=images&ia=images' + (settings.theme === 'dark' ? '&k1=-1&kae=d' : ''))
             else if (customSchemaSpace === 'i? ')
-                view.loadURL('https://duckduckgo.com/?q=' + val.substring(2) + '&iax=images&ia=images')
+                view.loadURL('https://duckduckgo.com/?q=' + val.substring(2) + '&iax=images&ia=images' + (settings.theme === 'dark' ? '&k1=-1&kae=d' : ''))
             else {
                 // Search the web
-                view.loadURL('https://duckduckgo.com/?q=' + val)
+                view.loadURL('https://duckduckgo.com/?q=' + val + (settings.theme === 'dark' ? '&k1=-1&kae=d' : ''))
             }
         }
     }
@@ -175,11 +179,21 @@ function selectOmniText() {
     }
 }
 
+function openSettings () {
+    ById('settingsModal').classList.add('is-active')
+}
+
+function closeSettings () {
+    ById('settingsModal').classList.remove('is-active')
+}
+
 refresh.addEventListener('click', reloadView)
 back.addEventListener('click', goBack)
 forward.addEventListener('click', goForward)
 omni.addEventListener('keydown', updateUrl)
 omni.addEventListener('click', selectOmniText)
+settingsModal.addEventListener('click', openSettings)
+closeSettingsModal.addEventListener('click', closeSettings)
 snip.addEventListener('click', addSnip)
 // list.addEventListener('click', openPopup)
 // popup.addEventListener('click', handleUrl)
@@ -195,3 +209,11 @@ ctx_maximize.addEventListener('click', function (e) {
   if (!window.isMaximized()) window.maximize()
   else window.unmaximize()
 })
+
+// view.loadURL(settings.startpage)
+
+// Load start page
+// view.loadURL(settings.startpage + ((settings.startpage === 'https://duckduckgo.com/' || settings.startpage === 'https://start.duckduckgo.com/') && settings.theme === 'dark' ? '&k1=-1&kae=d' : ''))
+
+// Set titlebar theme
+nav.classList.add('is-' + settings.theme)

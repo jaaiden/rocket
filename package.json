@@ -24,6 +24,7 @@
   "devDependencies": {
     "bulma-extensions": "^1.0.32",
     "electron": "^1.8.2",
-    "electron-builder": "^20.15.1"
+    "electron-builder": "^20.15.1",
+    "electron-packager": "^12.1.0"
   }
 }
