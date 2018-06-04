@@ -1,0 +1,159 @@
+var ById = function (id) {
+    return document.getElementById(id)
+}
+
+var jsonfile = require('jsonfile')
+var favicon = require('favicon-getter').default
+var path = require('path')
+var uuid = require('uuid')
+var snippets = path.join(__dirname, 'snippets.json')
+
+var back = ById('back'),  
+    forward = ById('forward'),
+    refresh = ById('refresh'),
+    omni = ById('omniurl'),
+    dev = ById('console'),
+    snip = ById('snip'),
+    list = ById('list'),
+    popup = ById('snip-popup'),
+    view = ById('view')
+
+function reloadView () {
+    view.reload()
+}
+
+function goBack () {
+    view.goBack()
+}
+
+function goForward () {
+    view.goForward()
+}
+
+function updateUrl (event) {
+    if (event.keyCode === 13) {
+        omni.blur()
+        let val = omni.innerHTML
+        if (validateUrl(val)) {
+            let https = val.slice(0, 8).toLowerCase()
+            let http = val.slice(0, 7).toLowerCase()
+            if (https === 'https://' || http === 'http://')
+                view.loadURL(val)
+            else
+                view.loadURL('http://' + val)
+        }
+        else {
+            // Search the web
+            view.loadURL('https://google.com/search?q=' + val)
+        }
+    }
+}
+
+var Snip = function (id, url, faviconUrl, title) {
+    this.id = id
+    this.url = url
+    this.icon = faviconUrl
+    this.title = title
+}
+
+Snip.prototype.ELEMENT = function () {
+    var a_tag = document.createElement('a')
+    a_tag.href = this.url
+    a_tag.textContent = this.title
+    var favImg = document.createElement('img')
+    favImg.src = this.icon
+    a_tag.insertBefore(favImg, a_tag.childNodes[0])
+    return a_tag
+}
+
+function addSnip () {
+    let url = view.src
+    let title = view.getTitle()
+    favicon(url).then(function (fav) {
+        let nSnip = new Snip(uuid.v1(), url, fav, title)
+        jsonfile.readFile(snippets, function (err, curr) {
+            curr.push(nSnip)
+            jsonfile.writeFile(snippets, curr, function (err){})
+        })
+    })
+}
+
+function openPopup (event) {
+    let state = popup.getAttribute('data-state')
+    if (state === 'closed') {
+        popup.innerHTML = ''
+        jsonfile.readFile(snippets, function (err, obj) {
+            if (obj.length !== 0) {
+                for (var i = 0; i < obj.length; i++) {
+                    let url = obj[i].url;
+                    let icon = obj[i].icon;
+                    let id = obj[i].id;
+                    let title = obj[i].title;
+                    let nSnip = new Snip(id, url, icon, title)
+                    let el = nSnip.ELEMENT()
+                    popup.appendChild(el)
+                }
+            }
+            popup.style.display = 'block'
+            popup.setAttribute('data-state', 'open')
+        })
+    }
+    else {
+        popup.style.display = 'none'
+        popup.setAttribute('data-state', 'closed')
+    }
+}
+
+function handleUrl (event) {
+    if (event.target.className === 'link') {
+        event.preventDefault()
+        view.loadURL(event.target.innerHTML)
+    }
+    else if (event.target.className === 'favicon') {
+        event.preventDefault()
+        view.loadURL(event.target.parentElement.href)
+    }
+}
+
+function handleDevtools () {  
+    if (view.isDevToolsOpened()) {
+        view.closeDevTools()
+    } else {
+        view.openDevTools()
+    }
+}
+
+function updateNav (event) {  
+    omni.innerHTML = view.src
+}
+
+// Validate url
+function validateUrl(value)
+{
+    var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi
+    var regexp = new RegExp(expression)
+    return regexp.test(value)
+} 
+
+function selectOmniText() {
+    if (document.selection) {
+        var range = document.body.createTextRange();
+        range.moveToElementText(omni);
+        range.select();
+    } else if (window.getSelection) {
+        var range = document.createRange();
+        range.selectNode(omni);
+        window.getSelection().addRange(range);
+    }
+}
+
+refresh.addEventListener('click', reloadView)
+back.addEventListener('click', goBack)
+forward.addEventListener('click', goForward)
+omni.addEventListener('keydown', updateUrl)
+omni.addEventListener('click', selectOmniText)
+snip.addEventListener('click', addSnip)
+// list.addEventListener('click', openPopup)
+// popup.addEventListener('click', handleUrl)
+dev.addEventListener('click', handleDevtools)
+view.addEventListener('did-finish-load', updateNav)

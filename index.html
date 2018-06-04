@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rocket</title>
+    <link rel="stylesheet" href="node_modules/bulma/css/bulma.css">
+    <link rel="stylesheet" href="node_modules/bulma-extensions/dist/bulma-extensions.min.css">
+    <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.css">
+    <style type="text/css">
+      nav {  -webkit-user-select: none; -webkit-app-region: drag; }
+      a, button, li, input, p { -webkit-app-region: no-drag; }
+      #view {
+        position: absolute;
+        top: 52px;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: inline-flex !important;
+      }
+
+      .is-transparent {
+        background-color: transparent !important;
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- Omnibar -->
+    <nav class="navbar is-fixed-top is-dark">
+
+      <div class="navbar-brand">
+        <div class="navbar-item"><span class="icon"><i class="fa fa-rocket fa-lg fa-fw"></i></span></div>
+        <!-- <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a> -->
+      </div>
+
+      <div class="navbar-menu">
+
+        <div class="navbar-start">
+          <a class="navbar-item" id="back"><span class="icon"><i class="fa fa-chevron-left fa-fw"></i></span></a>
+          <a class="navbar-item" id="forward"><span class="icon"><i class="fa fa-chevron-right fa-fw"></i></span></a>
+          <a class="navbar-item" id="refresh"><span class="icon"><i class="fa fa-refresh fa-fw"></i></span></a>
+          <!--<div class="navbar-item" id="omnibar">
+            <input class="input" size="60" type="text" name="omnibar" id="omniurl" placeholder="search or enter url">
+          </div>-->
+          <div class="navbar-item" contenteditable id="omniurl"></div>
+        </div>
+
+        <div class="navbar-end">
+          <a class="navbar-item" id="snip"><span class="icon"><i class="fa fa-bookmark-o fa-fw"></i></span></a>
+          <a class="navbar-item" id="console"><span class="icon"><i class="fa fa-terminal fa-fw"></i></span></a>
+        </div>
+
+      </div>
+    </nav>
+
+    <!-- WebView -->
+    <div style="width: 100%; height: 100%;">
+      <webview id="view" src="https://www.github.com/"></webview>
+    </div>
+
+
+    <script>require('./renderer.js')</script>
+  </body>
+</html>

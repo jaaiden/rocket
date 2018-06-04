@@ -1,0 +1,29 @@
+{
+  "name": "rocket",
+  "productName": "Rocket",
+  "version": "0.0.8",
+  "description": "Rocket - A fast and simple browser for the modern web",
+  "main": "rocket.js",
+  "author": {
+    "name": "zackdevine"
+  },
+  "license": "GNU GPL v3",
+  "repository": "zackdevine/rocket",
+  "dependencies": {
+    "bulma": "^0.7.1",
+    "favicon-getter": "^1.1.3",
+    "font-awesome": "^4.7.0",
+    "jsonfile": "^4.0.0",
+    "uuid": "^3.2.1"
+  },
+  "scripts": {
+    "start": "electron .",
+    "build": "./node_modules/.bin/build",
+    "buildmac": "./node_modules/.bin/build -m"
+  },
+  "devDependencies": {
+    "bulma-extensions": "^1.0.32",
+    "electron": "^1.8.2",
+    "electron-builder": "^20.15.1"
+  }
+}
