@@ -1,3 +1,6 @@
+const remote = require('electron').remote
+const app = remote.app
+
 var ById = function (id) {
     return document.getElementById(id)
 }
@@ -16,7 +19,18 @@ var back = ById('back'),
     snip = ById('snip'),
     list = ById('list'),
     popup = ById('snip-popup'),
-    view = ById('view')
+    view = ById('view'),
+    ctx_minimize = ById('ctx-minimize'),
+    ctx_maximize = ById('ctx-maximize'),
+    ctx_close = ById('ctx-close')
+
+if (remote.process.platform === 'darwin') {
+    // Hide context menu buttons
+    console.log('macos -- hiding window buttons')
+    ctx_minimize.style.display = 'none'
+    ctx_maximize.style.display = 'none'
+    ctx_close.style.display = 'none'
+}
 
 function reloadView () {
     view.reload()
@@ -171,3 +185,13 @@ snip.addEventListener('click', addSnip)
 // popup.addEventListener('click', handleUrl)
 dev.addEventListener('click', handleDevtools)
 view.addEventListener('did-finish-load', updateNav)
+
+
+// Contextual menu buttons
+ctx_close.addEventListener('click', function (e) { remote.getCurrentWindow().close() })
+ctx_minimize.addEventListener('click', function (e) { remote.getCurrentWindow().minimize() })
+ctx_maximize.addEventListener('click', function (e) {
+  var window = remote.getCurrentWindow()
+  if (!window.isMaximized()) window.maximize()
+  else window.unmaximize()
+})
