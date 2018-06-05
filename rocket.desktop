@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Rocket
+Exec=/usr/bin/rocket/rocket.sh
+Terminal=false
+Icon=/usr/bin/rocket/img/logo.png
+Type=Application
+Categories=WebBrowser;
+MimeType=text/html;text/xml;application/xhtml_cml;image/webp;x-scheme-handler/http;x-scheme-handler/https;x-scheme-handler/ftp;
