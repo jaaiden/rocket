@@ -1,6 +1,8 @@
 const remote = require('electron').remote
 const app = remote.app
 
+const pace = require('pace-progress')
+
 var ById = function (id) {
     return document.getElementById(id)
 }
@@ -30,7 +32,7 @@ var nav = ById('titlebar'),
 
 if (remote.process.platform === 'darwin') {
     // Hide context menu buttons
-    console.log('macos -- hiding window buttons')
+    console.log('macOS -- hiding window buttons')
     ctx_minimize.style.display = 'none'
     ctx_maximize.style.display = 'none'
     ctx_close.style.display = 'none'
@@ -198,6 +200,7 @@ snip.addEventListener('click', addSnip)
 // list.addEventListener('click', openPopup)
 // popup.addEventListener('click', handleUrl)
 dev.addEventListener('click', handleDevtools)
+view.addEventListener('did-start-loading', function () { pace.restart() })
 view.addEventListener('did-finish-load', updateNav)
 
 

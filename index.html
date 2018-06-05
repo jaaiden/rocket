@@ -4,18 +4,28 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Rocket</title>
+
+    <!-- Pace pageloader -->
+    <script src="node_modules/pace-progress/pace.js" data-pace-options='{ "restartOnRequestAfter": true }'></script>
+    <link rel="stylesheet" href="node_modules/pace-progress/themes/purple/pace-theme-minimal.css">
+
     <link rel="stylesheet" href="node_modules/bulma/css/bulma.css">
     <link rel="stylesheet" href="node_modules/bulma-extensions/dist/bulma-extensions.min.css">
     <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.css">
     <style type="text/css">
+      body { -ms-overflow-style: none; }
+      ::-webkit-scrollbar {
+        display: none;
+      }
       nav {  -webkit-user-select: none; -webkit-app-region: drag; }
       a, button, li, input, p, .navbar-item { -webkit-app-region: no-drag; }
       #view {
         position: absolute;
         top: 52px;
         left: 0;
+        bottom: 0;
         width: 100%;
-        height: 100%;
+        /*height: 100%;*/
         display: inline-flex !important;
       }
 

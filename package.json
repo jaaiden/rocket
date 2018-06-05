@@ -11,18 +11,19 @@
   "repository": "zackdevine/rocket",
   "dependencies": {
     "bulma": "^0.7.1",
+    "bulma-extensions": "^1.0.32",
     "favicon-getter": "^1.1.3",
     "font-awesome": "^4.7.0",
     "jsonfile": "^4.0.0",
+    "pace": "0.0.4",
+    "pace-progress": "^1.0.2",
     "uuid": "^3.2.1"
   },
   "scripts": {
     "start": "electron .",
-    "build": "./node_modules/.bin/build",
-    "buildmac": "./node_modules/.bin/build -m"
+    "build": "./node_modules/.bin/build"
   },
   "devDependencies": {
-    "bulma-extensions": "^1.0.32",
     "electron": "^1.8.2",
     "electron-builder": "^20.15.1",
     "electron-packager": "^12.1.0"
