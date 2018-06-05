@@ -1,11 +1,17 @@
 // Require electron
 const {app, BrowserWindow, Menu, webContents} = require('electron')
 
+// Require autoUpdater
+const autoUpdater = require('electron-updater').autoUpdater
+
 const path = require('path')
 const url = require('url')
 
 // Global reference of the window object
 let mainWindow
+
+// Register autoUpdater
+autoUpdater.checkForUpdatesAndNotify()
 
 function createWindow () {
     // Create browser window

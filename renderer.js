@@ -53,7 +53,8 @@ function goForward () {
 function updateUrl (event) {
     if (event.keyCode === 13) {
         omni.blur()
-        let val = omni.value
+        let val = omni.innerHTML // Use with editable div text
+        // let val = omni.value // Use with input field
         if (validateUrl(val)) {
             let https = val.slice(0, 8).toLowerCase()
             let http = val.slice(0, 7).toLowerCase()
@@ -139,8 +140,8 @@ function openPopup (event) {
 function handleUrl (event) {
     if (event.target.className === 'link') {
         event.preventDefault()
-        // view.loadURL(event.target.innerHTML) // Use with editable div text
-        view.loadURL(event.target.value)
+        view.loadURL(event.target.innerHTML) // Use with editable div text
+        // view.loadURL(event.target.value) // Use with input field
     }
     else if (event.target.className === 'favicon') {
         event.preventDefault()
@@ -157,8 +158,8 @@ function handleDevtools () {
 }
 
 function updateNav (event) {  
-    // omni.innerHTML = view.src // Use with editable div text
-    omni.value = view.src
+    omni.innerHTML = view.src // Use with editable div text
+    // omni.value = view.src // Use with input field
 }
 
 // Validate url
