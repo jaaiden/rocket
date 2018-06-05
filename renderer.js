@@ -19,8 +19,8 @@ var nav = ById('titlebar'),
     forward = ById('forward'),
     refresh = ById('refresh'),
     omni = ById('omniurl'),
-    settingsModal = ById('settings'),
-    closeSettingsModal = ById('close-settingsModal'),
+    // settingsModal = ById('settings'),
+    // closeSettingsModal = ById('close-settingsModal'),
     dev = ById('console'),
     snip = ById('snip'),
     list = ById('list'),
@@ -195,12 +195,12 @@ back.addEventListener('click', goBack)
 forward.addEventListener('click', goForward)
 omni.addEventListener('keydown', updateUrl)
 omni.addEventListener('click', selectOmniText)
-settingsModal.addEventListener('click', openSettings)
-closeSettingsModal.addEventListener('click', closeSettings)
+// settingsModal.addEventListener('click', openSettings)
+// closeSettingsModal.addEventListener('click', closeSettings)
 snip.addEventListener('click', addSnip)
 // list.addEventListener('click', openPopup)
 // popup.addEventListener('click', handleUrl)
-dev.addEventListener('click', handleDevtools)
+// dev.addEventListener('click', handleDevtools)
 view.addEventListener('did-start-loading', function () { pace.restart() })
 view.addEventListener('did-finish-load', updateNav)
 

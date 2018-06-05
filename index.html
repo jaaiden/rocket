@@ -9,8 +9,7 @@
     <script src="node_modules/pace-progress/pace.js" data-pace-options='{ "restartOnRequestAfter": true }'></script>
     <link rel="stylesheet" href="node_modules/pace-progress/themes/purple/pace-theme-minimal.css">
 
-    <link rel="stylesheet" href="node_modules/bulma/css/bulma.css">
-    <link rel="stylesheet" href="node_modules/bulma-extensions/dist/bulma-extensions.min.css">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.css">
     <style type="text/css">
       body { -ms-overflow-style: none; }
@@ -26,10 +25,10 @@
       }
 
       nav {  -webkit-user-select: none; -webkit-app-region: drag; }
-      a, button, li, input, p, .navbar-item { -webkit-app-region: no-drag; }
+      a, button, li, input, p { -webkit-app-region: no-drag; }
       #view {
         position: absolute;
-        top: 52px;
+        top: 50px;
         left: 0;
         bottom: 0;
         width: 100%;
@@ -37,51 +36,72 @@
         display: inline-flex !important;
       }
 
-      .is-transparent {
-        background-color: transparent !important;
+      .modal {
+        text-align: center;
+      }
+
+      @media screen and (min-width: 768px) { 
+        .modal:before {
+          display: inline-block;
+          vertical-align: middle;
+          content: " ";
+          height: 100%;
+        }
+      }
+
+      .modal-dialog {
+        display: inline-block;
+        text-align: left;
+        vertical-align: middle;
       }
     </style>
   </head>
   <body>
 
-    <!-- Omnibar -->
-    <nav class="navbar is-fixed-top" id="titlebar">
-
-      <div class="navbar-brand">
-        <!-- <a class="navbar-item" id="home"><img src="img/AppLogo2.png" width="24" height="24"></a> -->
-        <div class="navbar-item"><span class="icon"><i class="fa fa-rocket fa-lg fa-fw"></i></span></div>
-        <!-- <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a> -->
-      </div>
-
-      <div class="navbar-menu">
-
-        <div class="navbar-start">
-          <a class="navbar-item" id="back"><span class="icon"><i class="fa fa-chevron-left fa-fw"></i></span></a>
-          <a class="navbar-item" id="forward"><span class="icon"><i class="fa fa-chevron-right fa-fw"></i></span></a>
-          <a class="navbar-item" id="refresh"><span class="icon"><i class="fa fa-refresh fa-fw"></i></span></a>
-          <!-- <div class="navbar-item" id="omnibar">
-            <input class="input" size="60" type="text" name="omnibar" id="omniurl" placeholder="search or enter url">
-          </div> -->
-          <div class="navbar-item" contenteditable id="omniurl"></div>
+    <!-- Titlebar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#rocket-titlebar" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <span class="navbar-brand"><i class="fa fa-rocket fa-fw"></i></span>
         </div>
 
-        <div class="navbar-end">
-          <a class="navbar-item" id="snip"><span class="icon"><i class="fa fa-bookmark-o fa-fw"></i></span></a>
-          <a class="navbar-item" id="console"><span class="icon"><i class="fa fa-terminal fa-fw"></i></span></a>
-          <a class="navbar-item" id="settings"><span class="icon"><i class="fa fa-gear fa-fw"></i></span></a>
+        <div class="collapse navbar-collapse" id="rocket-titlebar">
+          
+          <ul class="nav navbar-nav">
+            <li id="back"><a href="#"><i class="fa fa-chevron-left fa-fw"></i></a></li>
+            <li id="forward"><a href="#"><i class="fa fa-chevron-right fa-fw"></i></a></li>
+            <li id="refresh"><a href="#"><i class="fa fa-refresh fa-fw"></i></a></li>
+            <!-- <div id="omnibar">
+              <input class="input" size="60" type="text" name="omnibar" id="omniurl" placeholder="search or enter url">
+            </div> -->
+            <!-- <div contenteditable id="omniurl"></div> -->
+            <p class="navbar-text" contenteditable id="omniurl"></p>
+          </ul>
 
-          <!-- Only for non-macOS -->
-          <a class="navbar-item" id="ctx-minimize"><span class="icon"><i class="fa fa-window-minimize fa-fw"></i></span></a>
-          <a class="navbar-item" id="ctx-maximize"><span class="icon"><i class="fa fa-window-restore fa-fw"></i></span></a>
-          <a class="navbar-item" id="ctx-close"><span class="icon"><i class="fa fa-close fa-fw"></i></span></a>
-          <!-- End context menu buttons -->
-        </div>
+          <ul class="nav navbar-nav navbar-right">
+            <!-- <li id="snip"><a href="#"><i class="fa fa-bookmark-o fa-fw"></i></a></li>
+            <li id="console"><a href="#"><i class="fa fa-terminal fa-fw"></i></a></li>
+            <li id="settings"><a href="#"><i class="fa fa-gear fa-fw"></i></a></li> -->
+            <li id="snip"><a href="#"><i class="fa fa-bookmark-o fa-fw"></i></a></li>
+            <li><a href="#" data-toggle="modal" data-target="#settingsModal"><i class="fa fa-gear fa-fw"></i></a></li>
 
-      </div>
+            <!-- Only for non-macOS -->
+            <li id="ctx-minimize"><a href="#"><i class="fa fa-window-minimize fa-fw"></i></a></li>
+            <li id="ctx-maximize"><a href="#"><i class="fa fa-window-restore fa-fw"></i></a></li>
+            <li id="ctx-close"><a href="#"><i class="fa fa-close fa-fw"></i></a></li>
+            <!-- End context menu buttons -->
+          </ul>
+
+        </div><!-- /.navbar-collapse -->
+
+      </div><!-- /.container-fluid -->
     </nav>
 
     <!-- WebView -->
@@ -92,23 +112,48 @@
 
 
     <!-- Settings modal -->
-    <div class="modal" id="settingsModal">
+    <!-- <div class="modal" id="settingsModal">
       <div class="modal-background"></div>
       <div class="modal-card">
         <header class="modal-card-head">
           <p class="modal-card-title">Rocket Settings</p>
           <button class="delete" id="close-settingsModal" aria-label="close"></button>
         </header>
+        
         <section class="modal-card-body">
-          <!-- Content ... -->
+
         </section>
+
         <footer class="modal-card-foot">
           <button class="button is-success">Save changes</button>
           <button class="button">Cancel</button>
         </footer>
       </div>
+    </div> -->
+
+    <!-- Settings modal -->
+    <div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="settingsModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="settingsModalLabel"><i class="fa fa-rocket fa-fw"></i> Rocket settings</h4>
+          </div>
+          <div class="modal-body">
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary btn-sm">Save</button>
+          </div>
+        </div>
+      </div>
     </div>
 
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script>require('./renderer.js')</script>
+    <script>if (window.module) module = window.module</script>
   </body>
 </html>

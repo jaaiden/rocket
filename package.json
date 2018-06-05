@@ -10,8 +10,7 @@
   "license": "GNU GPL v3",
   "repository": "zackdevine/rocket",
   "dependencies": {
-    "bulma": "^0.7.1",
-    "bulma-extensions": "^1.0.32",
+    "bootstrap": "^3.3.7",
     "electron-updater": "^2.21.10",
     "favicon-getter": "^1.1.3",
     "font-awesome": "^4.7.0",
