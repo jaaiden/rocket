@@ -1,5 +1,5 @@
 // Require electron
-const {app, BrowserWindow, Menu} = require('electron')
+const {app, BrowserWindow, Menu, webContents} = require('electron')
 
 const path = require('path')
 const url = require('url')
@@ -26,6 +26,21 @@ function createWindow () {
 
     // Open devtools
     // mainWindow.webContents.openDevTools()
+
+    mainWindow.on('resize', () => {
+        const [width, height] = mainWindow.getContentSize()
+        for (let wc of webContents.getAllWebContents()) {
+            // Check if `wc` belongs to a webview in the `mainWindow` window.
+            if (wc.hostWebContents && wc.hostWebContents.id === mainWindow.webContents.id) {
+                wc.setSize({
+                    normal: {
+                        width: width,
+                        height: height
+                    }
+                })
+            }
+        }
+    })
 
     mainWindow.on('closed', function () {
         mainWindow = null
