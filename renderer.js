@@ -220,4 +220,4 @@ ctx_maximize.addEventListener('click', function (e) {
 // view.loadURL(settings.startpage + ((settings.startpage === 'https://duckduckgo.com/' || settings.startpage === 'https://start.duckduckgo.com/') && settings.theme === 'dark' ? '&k1=-1&kae=d' : ''))
 
 // Set titlebar theme
-nav.classList.add('is-' + settings.theme)
+// nav.classList.add('is-' + settings.theme)

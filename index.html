@@ -6,60 +6,14 @@
     <title>Rocket</title>
 
     <!-- Pace pageloader -->
-    <script src="node_modules/pace-progress/pace.js" data-pace-options='{ "restartOnRequestAfter": true }'></script>
+    <script src="node_modules/pace-progress/pace.js"></script>
     <link rel="stylesheet" href="node_modules/pace-progress/themes/purple/pace-theme-minimal.css">
-
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.css">
-    <style type="text/css">
-      body { -ms-overflow-style: none; }
-      ::-webkit-scrollbar {
-        display: none;
-      }
-
-      -webkit-scrollbar-thumb
-      {
-          border-radius: 10px;
-          -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-          background-color: #D62929;
-      }
-
-      nav {  -webkit-user-select: none; -webkit-app-region: drag; }
-      a, button, li, input, p { -webkit-app-region: no-drag; }
-      #view {
-        position: absolute;
-        top: 50px;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        /*height: 100%;*/
-        display: inline-flex !important;
-      }
-
-      .modal {
-        text-align: center;
-      }
-
-      @media screen and (min-width: 768px) { 
-        .modal:before {
-          display: inline-block;
-          vertical-align: middle;
-          content: " ";
-          height: 100%;
-        }
-      }
-
-      .modal-dialog {
-        display: inline-block;
-        text-align: left;
-        vertical-align: middle;
-      }
-    </style>
+    <link rel="stylesheet" href="css/app.css">
   </head>
   <body>
 
     <!-- Titlebar -->
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-inverse navbar-fixed-top" id="titlebar">
       <div class="container-fluid">
         
         <div class="navbar-header">

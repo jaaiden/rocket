@@ -7,6 +7,11 @@ const autoUpdater = require('electron-updater').autoUpdater
 const path = require('path')
 const url = require('url')
 
+// Require Less compiler
+const eless = require('electron-less')
+// Compile less
+eless({ source: 'css/app.less' }).then(()=>{ console.log("Compiled and appended styles to head!") })
+
 // Global reference of the window object
 let mainWindow
 
