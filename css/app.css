@@ -1,5 +1,6 @@
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 @import "../node_modules/font-awesome/css/font-awesome.min.css";
+@import "../node_modules/animate.css/animate.min.css";
 @import url('https://fonts.googleapis.com/css?family=Encode+Sans');
 
 body { -ms-overflow-style: none; }
@@ -41,4 +42,8 @@ p, a, span, div, label, input, textarea, h1, h2, h3, h4, h5, h6 {
   display: inline-block;
   text-align: left;
   vertical-align: middle;
+}
+
+.omniurl br {
+    display: none
 }

@@ -13,7 +13,7 @@
   <body>
 
     <!-- Titlebar -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" id="titlebar">
+    <nav class="navbar navbar-inverse navbar-static-top" id="titlebar">
       <div class="container-fluid">
         
         <div class="navbar-header">
@@ -43,6 +43,10 @@
             <!-- <li id="snip"><a href="#"><i class="fa fa-bookmark-o fa-fw"></i></a></li>
             <li id="console"><a href="#"><i class="fa fa-terminal fa-fw"></i></a></li>
             <li id="settings"><a href="#"><i class="fa fa-gear fa-fw"></i></a></li> -->
+
+            <!-- <p class="navbar-text" id="httpslock"><i class="fa fa-fw fa-lock text-success"></i> Secure</p> -->
+            <p class="navbar-text" id="httpslock"><i class="fa fa-fw fa-lock text-success"></i> <span data-toggle="tooltip" data-placement="bottom" title="This site is secure with a valid SSL certificate">Secure</span></p>
+
             <li id="snip"><a href="#"><i class="fa fa-bookmark-o fa-fw"></i></a></li>
             <li><a href="#" data-toggle="modal" data-target="#settingsModal"><i class="fa fa-gear fa-fw"></i></a></li>
 
@@ -59,9 +63,7 @@
     </nav>
 
     <!-- WebView -->
-    <div style="width: 100%; height: 100%;">
-      <webview id="view" src="https://start.duckduckgo.com/?k1=-1&kae=d" disableguestresize></webview>
-    </div>
+    <webview id="view" src="https://start.duckduckgo.com/?k1=-1&kae=d" disableguestresize></webview>
 
 
 

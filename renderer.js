@@ -1,3 +1,46 @@
+// animate.css
+$.fn.extend({
+  animateCss: function(animationName, callback) {
+    var animationEnd = (function(el) {
+      var animations = {
+        animation: 'animationend',
+        OAnimation: 'oAnimationEnd',
+        MozAnimation: 'mozAnimationEnd',
+        WebkitAnimation: 'webkitAnimationEnd',
+      };
+
+      for (var t in animations) {
+        if (el.style[t] !== undefined) {
+          return animations[t];
+        }
+      }
+    })(document.createElement('div'));
+
+    this.addClass('animated ' + animationName).one(animationEnd, function() {
+      $(this).removeClass('animated ' + animationName);
+
+      if (typeof callback === 'function') callback();
+    });
+
+    return this;
+  },
+});
+
+
+$(function () {
+    $("#httpslock").hide()
+    $('[data-toggle="tooltip"]').tooltip()
+})
+
+
+
+
+
+
+
+
+
+
 const remote = require('electron').remote
 const app = remote.app
 
@@ -64,9 +107,14 @@ function updateUrl (event) {
                 view.loadURL('http://' + val)
         }
         else {
+            var rocketSchema = val.slice(0, 9).toLowerCase()
             var customSchema = val.slice(0, 2).toLowerCase()
             var customSchemaSpace = val.slice(0, 3).toLowerCase()
-            if (customSchema === 'v?')
+            if (rocketSchema === 'rocket://') {
+                var pageToLoad = val.slice(9).toLowerCase()
+                view.loadURL('file://' + __dirname + '/rocket-pages/' + pageToLoad + '.html')
+            }
+            else if (customSchema === 'v?')
                 view.loadURL('https://duckduckgo.com/?q=' + val.substring(2) + '&iax=videos&ia=videos' + (settings.theme === 'dark' ? '&k1=-1&kae=d' : ''))
             else if (customSchemaSpace === 'v? ')
                 view.loadURL('https://duckduckgo.com/?q=' + val.substring(2) + '&iax=videos&ia=videos' + (settings.theme === 'dark' ? '&k1=-1&kae=d' : ''))
@@ -158,8 +206,18 @@ function handleDevtools () {
 }
 
 function updateNav (event) {  
-    omni.innerHTML = view.src // Use with editable div text
-    // omni.value = view.src // Use with input field
+    if (view.src.slice(0, 8) !== 'rocket://') {
+        if (view.src.slice(0, 7).toLowerCase() === 'http://') {
+            $("#httpslock").animateCss('fadeOutRight')
+            $("#httpslock").hide()
+        }
+        else {
+            $("#httpslock").show()
+            $("#httpslock").animateCss('fadeInRight')
+        }
+        omni.innerHTML = view.src // Use with editable div text
+        // omni.value = view.src // Use with input field
+    }
 }
 
 // Validate url
