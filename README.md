@@ -8,3 +8,7 @@ A fast and simple browser for the modern web
 
 #### Building:
 Run `npm run build` to run electron-builder. Files will be in the `dist` folder.
+
+
+This project has since been left to die.
+Feel free to fork etc.
